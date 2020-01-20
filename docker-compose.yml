@@ -18,18 +18,20 @@ services:
       - db
     image: wordpress:php7.4-fpm-alpine
     container_name: wordpress
-    env_file: .env
     environment:
       - WORDPRESS_DB_HOST=db:3306
       - WORDPRESS_DB_USER=$MYSQL_USER
       - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
       - WORDPRESS_DB_NAME=wordpress
+      - XDEBUG_CONFIG=remote_host=host.docker.internal
     volumes:
       - ./data/wordpress:/var/www/html
     networks:
       - wpnet
 
   nginx:
+    depends_on:
+      - wordpress
     image: nginx:alpine
     ports:
       - "80:80"
