@@ -28,6 +28,7 @@ services:
       - XDEBUG_CONFIG=remote_host=host.docker.internal
     volumes:
       - ./data/wordpress:/var/www/html
+      - ./config/php/docker-php-ext-upload.ini:/usr/local/etc/php/conf.d/docker-php-ext-upload.ini
     networks:
       - wpnet
 
